@@ -35,11 +35,6 @@ class MyApp extends StatelessWidget {
           seedColor: const Color(0xFF37C3F0),
         ),
         useMaterial3: true,
-        textTheme: const TextTheme(
-          bodyLarge: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
-          bodyMedium: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
-          bodySmall: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w500),
-        ),
       ),
       home: const WelcomeScreen(),
     );

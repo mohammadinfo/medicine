@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:lottie/lottie.dart';
 import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
+import 'package:medicine/core/mock_models.dart';
+import 'package:medicine/features/dashboard/screens/detail_plan.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,6 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
               LottieBuilder.asset(
                 'assets/animations/welcome.json',
                 width: 200.0,
+              ),
+              ListTile(
+                onTap: () {},
+                title: const Text('پروفایل'),
+                leading: const Icon(Icons.person),
               ),
               ListTile(
                 onTap: () {},
@@ -53,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 36.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -131,13 +139,16 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 16.0),
             ListView.separated(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: MockUserPlan.list.length,
               itemBuilder: (context, index) {
                 var plan = MockUserPlan.list[index];
                 return Card(
                   margin: EdgeInsets.zero,
                   child: ListTile(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(DetailPlanScreen(userPlan: plan));
+                    },
                     trailing: plan.isDone ? const Icon(Icons.check) : null,
                     title: Text(plan.title),
                     subtitle: Text(plan.date),
@@ -162,45 +173,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-//
-class MockUserPlan {
-  int id;
-  String title;
-  String date;
-  bool isDone;
-  MockUserPlan({
-    required this.id,
-    required this.title,
-    required this.date,
-    required this.isDone,
-  });
-
-  static List<MockUserPlan> list = [
-    MockUserPlan(
-      id: 1,
-      title: 'شنبه',
-      date: '1402/01/01',
-      isDone: true,
-    ),
-    MockUserPlan(
-      id: 2,
-      title: 'یک شنبه',
-      date: '1402/02/07',
-      isDone: true,
-    ),
-    MockUserPlan(
-      id: 3,
-      title: 'دو شنبه',
-      date: '1402/03/09',
-      isDone: false,
-    ),
-    MockUserPlan(
-      id: 3,
-      title: 'سه شنبه',
-      date: '1402/02/02',
-      isDone: false,
-    ),
-  ];
 }

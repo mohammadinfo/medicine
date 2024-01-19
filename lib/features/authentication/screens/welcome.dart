@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:lottie/lottie.dart';
 import 'package:medicine/features/authentication/screens/login.dart';
 import 'package:medicine/features/authentication/screens/register.dart';
 
@@ -65,6 +63,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(100.0, 45.0),
+                      ),
                       onPressed: () {
                         Get.to(const LoginScreen());
                       },
@@ -75,6 +76,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     ),
                     const SizedBox(height: 8.0),
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: const Size(100.0, 45.0),
+                      ),
                       onPressed: () {
                         Get.to(const RegisterScreen());
                       },
