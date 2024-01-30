@@ -27,8 +27,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 foregroundDecoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.black,
-                      Colors.black54,
+                      Colors.blue,
+                      Colors.transparent,
                     ],
                     begin: Alignment.bottomCenter,
                     end: Alignment.topCenter,
@@ -47,19 +47,34 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
               Positioned(
                 bottom: 80.0,
+                right: 16.0,
+                left: 16.0,
                 child: Column(
                   children: [
                     Text(
-                      'پزشکیار',
+                      'فیزولاین',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 45.0,
                             color: Colors.white,
                             fontWeight: FontWeight.w600,
                           ),
                     ),
+                    const SizedBox(height: 8.0),
                     const Text(
-                      'با پزشکیار همیشه سالم باشید...',
+                      'با فیزیولاین، کلینیک فیزیوتراپی در جیب شما',
                       style: TextStyle(color: Colors.white),
+                    ),
+                    const SizedBox(height: 8.0),
+                    SizedBox(
+                      width: MediaQuery.sizeOf(context).width,
+                      child: Text(
+                        'فیزیولاین پلتفرم برخط ارائه خدمات دوراپزشکی در حوزه درمانی فیزیوتراپی و توانبخشی بدنی، مبتنی بر ایجاد ارتباط آسان بین پزشک و بیمار است.',
+                        textAlign: TextAlign.center,
+                        style:
+                            Theme.of(context).textTheme.labelMedium?.copyWith(
+                                  color: Colors.white,
+                                ),
+                      ),
                     ),
                     const SizedBox(height: 16.0),
                     ElevatedButton(
