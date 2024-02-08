@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('فیزیولاین'),
+        title: const Text('فیزیولاین بیمار'),
       ),
       drawer: SafeArea(
         child: Drawer(

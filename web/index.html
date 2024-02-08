@@ -14,7 +14,9 @@
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
   -->
-  <!-- <base href="$FLUTTER_BASE_HREF"> -->
+  <base href="$FLUTTER_BASE_HREF">
+  <!-- <base href="https://mohammadinfo.github.io/physioline/"> -->
+
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -47,7 +49,7 @@
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointSuccess: function(engineInitializer) {
+        onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
           });

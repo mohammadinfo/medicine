@@ -6,7 +6,17 @@ import 'package:medicine/features/authentication/screens/welcome.dart';
 import 'package:medicine/features/dashboard/bloc/client_bloc.dart';
 import 'package:medicine/features/dashboard/data/services/api_methods.dart';
 import 'package:medicine/features/dashboard/screens/settings.dart';
+import 'package:medicine/features/expert/bloc/expert_bloc.dart';
+import 'package:medicine/features/expert/data/services/api_methods.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+enum UserRule {
+  user,
+  admin,
+  expert,
+}
+
+UserRule userRule = UserRule.expert;
 
 late SharedPreferences prefs;
 
@@ -24,6 +34,7 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ClientBloc(ApiClient())),
+        BlocProvider(create: (context) => ExpertBloc(ExpertApiClient())),
       ],
       child: const MyApp(),
     ),

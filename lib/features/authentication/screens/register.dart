@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medicine/features/dashboard/screens/home.dart';
+import 'package:medicine/features/expert/screens/expert_dashboard.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -85,7 +86,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     onPressed: () {
-                      Get.offAll(const HomeScreen());
+                      // Get.offAll(const HomeScreen());
+                      Get.offAll(const ExpertDashboardScreen());
                     },
                     child: Text(
                       'ثبت نام',
