@@ -51,8 +51,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 left: 16.0,
                 child: Column(
                   children: [
+                    Image.asset(
+                      'assets/images/logo.png',
+                      width: 150.0,
+                    ),
                     Text(
-                      'فیزولاین',
+                      'فیزیولاین',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 45.0,
                             color: Colors.white,
@@ -79,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     const SizedBox(height: 16.0),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(100.0, 45.0),
+                        fixedSize: const Size(150.0, 50.0),
                       ),
                       onPressed: () {
                         Get.to(const LoginScreen());
@@ -92,7 +96,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     const SizedBox(height: 8.0),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        fixedSize: const Size(100.0, 45.0),
+                        fixedSize: const Size(150.0, 50.0),
                       ),
                       onPressed: () {
                         Get.to(const RegisterScreen());

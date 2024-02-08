@@ -1,16 +1,18 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/get_core.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:lottie/lottie.dart';
-import 'package:dashed_circular_progress_bar/dashed_circular_progress_bar.dart';
 import 'package:medicine/core/utils.dart';
 import 'package:medicine/core/widgets/loading_items_widget.dart';
 import 'package:medicine/features/dashboard/bloc/client_bloc.dart';
 import 'package:medicine/features/dashboard/bloc/client_events.dart';
 import 'package:medicine/features/dashboard/bloc/client_states.dart';
 import 'package:medicine/features/dashboard/screens/detail_plan.dart';
+import 'package:medicine/features/dashboard/screens/settings.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,7 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('پزشکیار')),
+      appBar: AppBar(
+        title: const Text('فیزیولاین'),
+      ),
       drawer: SafeArea(
         child: Drawer(
           child: Column(
@@ -57,12 +61,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 leading: const Icon(Icons.history),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                  Get.to(const SettingsScreen());
+                },
                 title: const Text('تنظیمات'),
                 leading: const Icon(Icons.settings),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                  Get.defaultDialog(
+                    title: 'هشدار',
+                    titleStyle: Theme.of(context).textTheme.bodyMedium,
+                    content: Text(
+                      'آیا میخواهید خارج شوید ؟',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    confirm: TextButton(
+                      onPressed: () {
+                        Get.back();
+                        exit(0);
+                      },
+                      child: const Text('بله'),
+                    ),
+                    cancel: TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text('خیر'),
+                    ),
+                  );
+                },
                 title: const Text('خروج'),
                 leading: const Icon(Icons.exit_to_app_rounded),
               ),
@@ -100,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 16.0),
             Text(
               'برنامه های درمانی',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     fontWeight: FontWeight.w700,
                   ),
             ),
@@ -124,45 +154,40 @@ class _HomeScreenState extends State<HomeScreen> {
                     itemCount: state.plans.length,
                     itemBuilder: (context, index) {
                       var plan = state.plans[index];
-                      return GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: () {
-                          Get.to(DetailPlanScreen(plan: plan));
-                        },
-                        child: Card(
-                          margin: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12.0),
-                            side: (plan.isActive ?? false)
-                                ? const BorderSide(
-                                    color: Colors.green,
-                                    width: 0.5,
-                                  )
-                                : BorderSide.none,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8.0,
-                                  vertical: 6.0,
-                                ),
-                                child: Row(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(100.0),
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            'https://i.giphy.com/cCaSeXFNKlu6zBtSGd.webp',
-                                        width: 50.0,
-                                        height: 50.0,
-                                        fit: BoxFit.cover,
-                                      ),
+                      return Card(
+                        margin: EdgeInsets.zero,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                          side: (plan.isActive ?? false)
+                              ? const BorderSide(
+                                  color: Colors.green,
+                                  width: 0.5,
+                                )
+                              : BorderSide.none,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16.0,
+                                vertical: 12.0,
+                              ),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          'https://www.tarhdokan.com/wp-content/uploads/2020/07/doctor-1-1.jpg',
+                                      width: 50.0,
+                                      height: 50.0,
+                                      fit: BoxFit.cover,
                                     ),
-                                    const SizedBox(width: 12.0),
-                                    const Column(
+                                  ),
+                                  const SizedBox(width: 12.0),
+                                  const Expanded(
+                                    child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
@@ -170,21 +195,35 @@ class _HomeScreenState extends State<HomeScreen> {
                                         Text('تخصص دکتر'),
                                       ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Text(
+                                    'تاریخ شروع\n${plan.startDate!.toShamsi}',
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ],
                               ),
-                              ListTile(
-                                minVerticalPadding: 0.0,
-                                trailing: Text(
-                                  'تاریخ شروع\n${plan.startDate!.toShamsi}',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                title: Text((plan.title ?? '')),
-                                subtitle: Text((plan.description ?? '')),
+                            ),
+                            ListTile(
+                              minVerticalPadding: 0.0,
+                              title: Text((plan.title ?? '')),
+                              subtitle: Text((plan.description ?? '')),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 8.0,
+                                vertical: 16.0,
                               ),
-                            ],
-                          ),
+                              width: MediaQuery.sizeOf(context).width,
+                              height: 45.0,
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  Get.to(DetailPlanScreen(plan: plan));
+                                },
+                                child: const Text('مشاهده جزییات'),
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     },
